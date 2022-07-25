@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.msajuice">
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher_background"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MSAApiCallingJuicePizza">
+        <activity android:name=".BaseActivity"/>
+        <activity
+            android:name=".JuiceDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".JuiceMainActivity"
+            android:exported="true">
+        </activity>
+    </application>
+
+</manifest>
