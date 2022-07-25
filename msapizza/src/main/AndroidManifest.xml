@@ -13,9 +13,11 @@
         android:theme="@style/Theme.MSAApiCallingJuicePizza">
         <activity
             android:name=".Activities.PizzaDetailActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Activities.PizzaMainActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
         </activity>
     </application>

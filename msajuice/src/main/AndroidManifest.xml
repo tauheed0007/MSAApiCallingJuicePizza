@@ -13,9 +13,11 @@
         <activity android:name=".BaseActivity.BaseActivity"/>
         <activity
             android:name=".Activities.JuiceDetailActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Activities.JuiceMainActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
         </activity>
     </application>
