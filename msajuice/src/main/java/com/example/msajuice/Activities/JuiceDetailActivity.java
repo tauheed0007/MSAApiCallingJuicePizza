@@ -1,8 +1,8 @@
-package com.example.msajuice;
+package com.example.msajuice.Activities;
 
-import static com.example.msajuice.JuiceMainActivity.EXTRA_CREATOR_juice;
-import static com.example.msajuice.JuiceMainActivity.EXTRA_LIKES_juice;
-import static com.example.msajuice.JuiceMainActivity.EXTRA_URL_juice;
+import static com.example.msajuice.Activities.JuiceMainActivity.EXTRA_CREATOR_juice;
+import static com.example.msajuice.Activities.JuiceMainActivity.EXTRA_LIKES_juice;
+import static com.example.msajuice.Activities.JuiceMainActivity.EXTRA_URL_juice;
 
 import androidx.appcompat.app.AppCompatActivity;
 

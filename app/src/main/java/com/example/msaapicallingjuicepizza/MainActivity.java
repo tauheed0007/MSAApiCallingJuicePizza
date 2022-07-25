@@ -14,9 +14,9 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.msaapicallingjuicepizza.databinding.ActivityMainBinding;
-import com.example.msajuice.BaseActivity;
-import com.example.msajuice.JuiceMainActivity;
-import com.example.msapizza.PizzaMainActivity;
+import com.example.msajuice.BaseActivity.BaseActivity;
+import com.example.msajuice.Activities.JuiceMainActivity;
+import com.example.msapizza.Activities.PizzaMainActivity;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;

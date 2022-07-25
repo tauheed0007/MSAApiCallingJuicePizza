@@ -1,4 +1,4 @@
-package com.example.msajuice;
+package com.example.msajuice.BaseActivity;
 
 import android.app.Activity;
 

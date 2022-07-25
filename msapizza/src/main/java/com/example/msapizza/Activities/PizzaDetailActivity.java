@@ -1,9 +1,9 @@
-package com.example.msapizza;
+package com.example.msapizza.Activities;
 
-import static com.example.msapizza.PizzaMainActivity.EXTRA_CREATOR_pizza;
-import static com.example.msapizza.PizzaMainActivity.EXTRA_LIKES_pizza;
-import static com.example.msapizza.PizzaMainActivity.EXTRA_PHONE;
-import static com.example.msapizza.PizzaMainActivity.EXTRA_URL_pizza;
+import static com.example.msapizza.Activities.PizzaMainActivity.EXTRA_CREATOR_pizza;
+import static com.example.msapizza.Activities.PizzaMainActivity.EXTRA_LIKES_pizza;
+import static com.example.msapizza.Activities.PizzaMainActivity.EXTRA_PHONE;
+import static com.example.msapizza.Activities.PizzaMainActivity.EXTRA_URL_pizza;
 
 import androidx.appcompat.app.AppCompatActivity;
 

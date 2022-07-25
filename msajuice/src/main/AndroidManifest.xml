@@ -10,12 +10,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MSAApiCallingJuicePizza">
-        <activity android:name=".BaseActivity"/>
+        <activity android:name=".BaseActivity.BaseActivity"/>
         <activity
-            android:name=".JuiceDetailActivity"
+            android:name=".Activities.JuiceDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".JuiceMainActivity"
+            android:name=".Activities.JuiceMainActivity"
             android:exported="true">
         </activity>
     </application>

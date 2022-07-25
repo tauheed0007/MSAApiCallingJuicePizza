@@ -1,11 +1,10 @@
-package com.example.msapizza;
+package com.example.msajuice.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.android.volley.AuthFailureError;
@@ -14,10 +13,11 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.msajuice.BaseActivity;
-import com.example.msapizza.databinding.ActivityPizzaDetailBinding;
-import com.example.msapizza.databinding.ActivityPizzaMainBinding;
+import com.example.msajuice.Adapter.JuiceAdapter;
+import com.example.msajuice.BaseActivity.BaseActivity;
+import com.example.msajuice.JuiceItem;
+import com.example.msajuice.Volley.VolleySingleton;
+import com.example.msajuice.databinding.ActivityJuiceMainBinding;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,43 +27,46 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PizzaMainActivity extends AppCompatActivity implements PizzaAdapter.OnItemClickListener {
+public class JuiceMainActivity extends AppCompatActivity implements JuiceAdapter.OnItemClickListener {
 
-    private ActivityPizzaMainBinding bindingPizza;
+    private ActivityJuiceMainBinding bindingJuice;
 
-    public static final String EXTRA_URL_pizza = "imageUrl";
-    public static final String EXTRA_CREATOR_pizza = "creatorName";
-    public static final String EXTRA_LIKES_pizza = "likeCount";
-    public static final String EXTRA_PHONE = "phone";
+    public static final String EXTRA_URL_juice = "imageUrl";
+    public static final String EXTRA_CREATOR_juice = "creatorName";
+    public static final String EXTRA_LIKES_juice = "likeCount";
 
-    private PizzaAdapter mExampleAdapter;
-    private ArrayList<PizzaItem> mPizzaList;
+
+    private JuiceAdapter mExampleAdapter;
+    private ArrayList<JuiceItem> mJuiceList;
     private RequestQueue mRequestQueue;
-
     private final double lat = BaseActivity.global_latitude;
     private final double lng = BaseActivity.global_longitude;
     private final double radius = BaseActivity.radius;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bindingPizza = ActivityPizzaMainBinding.inflate(getLayoutInflater());
-        setContentView(bindingPizza.getRoot());
+        bindingJuice = ActivityJuiceMainBinding.inflate(getLayoutInflater());
+        setContentView(bindingJuice.getRoot());
 
-        bindingPizza.progressBarPizza.setVisibility(View.VISIBLE);
-        bindingPizza.recyclerViewPizza.setHasFixedSize(true);
-        bindingPizza.recyclerViewPizza.setLayoutManager(new LinearLayoutManager(this));
 
-        mPizzaList = new ArrayList<>();
 
-        mRequestQueue = Volley.newRequestQueue(this);
+
+        bindingJuice.progressBarJuice.setVisibility(View.VISIBLE);
+        bindingJuice.recyclerViewJuice.setHasFixedSize(true);
+        bindingJuice.recyclerViewJuice.setLayoutManager(new LinearLayoutManager(this));
+
+        mJuiceList = new ArrayList<>();
+
+        mRequestQueue = VolleySingleton.getmInstance(this).getRequestQueue();
+
         parseJSON();
     }
 
     private void parseJSON() {
         String url = "https://api.yelp.com/v3/businesses/search?term=pizza&"+lat+"&"+lng+"&"+radius;
-        Log.d("latii","Done "+lat);
+
+
         JSONObject parameters = new JSONObject();
         try {
             parameters.put("key", "value");
@@ -74,22 +77,22 @@ public class PizzaMainActivity extends AppCompatActivity implements PizzaAdapter
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            bindingPizza.progressBarPizza.setVisibility(View.GONE);
+                            bindingJuice.progressBarJuice.setVisibility(View.GONE);
                             JSONArray jsonArray = response.getJSONArray("businesses");
 
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject hit = jsonArray.getJSONObject(i);
+
                                 String creatorName = hit.getString("name");
                                 String imageUrl = hit.getString("image_url");
-                                String phone = hit.getString("phone");
                                 int likeCount = hit.getInt("review_count");
 
-                                mPizzaList.add(new PizzaItem(imageUrl, creatorName, phone,likeCount));
+                                mJuiceList.add(new JuiceItem(imageUrl, creatorName, likeCount));
                             }
 
-                            mExampleAdapter = new PizzaAdapter(PizzaMainActivity.this, mPizzaList);
-                            bindingPizza.recyclerViewPizza.setAdapter(mExampleAdapter);
-                            mExampleAdapter.setOnItemClickListener(PizzaMainActivity.this);
+                            mExampleAdapter = new JuiceAdapter(JuiceMainActivity.this, mJuiceList);
+                            bindingJuice.recyclerViewJuice.setAdapter(mExampleAdapter);
+                            mExampleAdapter.setOnItemClickListener(JuiceMainActivity.this);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -104,6 +107,9 @@ public class PizzaMainActivity extends AppCompatActivity implements PizzaAdapter
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> headers = new HashMap<>();
+                // Basic Authentication
+                //String auth = "Basic " + Base64.encodeToString(CONSUMER_KEY_AND_SECRET.getBytes(), Base64.NO_WRAP);
+
                 headers.put("Authorization", "Bearer 2ROaa2Rh9qu3WVTCms8FoVE4mSfHQHC7QJua95-kKT-PqzIlLSrs4tmHVdtdFw_66-JNfRiJmbCByHTvFNy5dQq-tpfS4FrPpupIzKlgELR3br-r5trpeFhrCRgwWnYx");
                 return headers;
             }
@@ -114,13 +120,12 @@ public class PizzaMainActivity extends AppCompatActivity implements PizzaAdapter
 
     @Override
     public void onItemClick(int position) {
-        Intent detailIntent = new Intent(this, PizzaDetailActivity.class);
-        PizzaItem clickedItem = mPizzaList.get(position);
+        Intent detailIntent = new Intent(this, JuiceDetailActivity.class);
+        JuiceItem clickedItem = mJuiceList.get(position);
 
-        detailIntent.putExtra(EXTRA_URL_pizza, clickedItem.getImageUrl());
-        detailIntent.putExtra(EXTRA_CREATOR_pizza, clickedItem.getCreator());
-        detailIntent.putExtra(EXTRA_LIKES_pizza, clickedItem.getLikeCount());
-        detailIntent.putExtra(EXTRA_PHONE, clickedItem.getLikeCount());
+        detailIntent.putExtra(EXTRA_URL_juice, clickedItem.getImageUrl());
+        detailIntent.putExtra(EXTRA_CREATOR_juice, clickedItem.getCreator());
+        detailIntent.putExtra(EXTRA_LIKES_juice, clickedItem.getLikeCount());
 
         startActivity(detailIntent);
     }

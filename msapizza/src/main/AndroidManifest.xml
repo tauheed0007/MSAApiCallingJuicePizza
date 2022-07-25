@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MSAApiCallingJuicePizza">
         <activity
-            android:name=".PizzaDetailActivity"
+            android:name=".Activities.PizzaDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".PizzaMainActivity"
+            android:name=".Activities.PizzaMainActivity"
             android:exported="true">
         </activity>
     </application>
